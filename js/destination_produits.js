@@ -31,7 +31,6 @@ divAffichageProduits.innerHTML =`
     <div class="affichage_content_bloc-img"><img src ="${idProduitSelectionner.chemin_image}"></div>
         <div class="prod_text">
             <p class="affichage_pro_name">${idProduitSelectionner.nom_Produits}</p>  
-            
             <p class="affichage_prod_prix">${idProduitSelectionner.prix_produits} $</p>
             <a  href="affichage_destination_produits.html?id=${idProduitSelectionner._id}" class="link_add_panier">
                 <div class="affichage_btn_add">Ajouter au panier</div>
@@ -47,7 +46,7 @@ let affichage_btn_add = document.querySelector('.affichage_btn_add');
 let prod_text = document.querySelector('.prod_text');
 let link_add_panier = document.querySelector('.link_add_panier');
 let affichage_pro_name = document.querySelector('.affichage_pro_name');
-
+let affichage_prod_prix = document.querySelector('.affichage_prod_prix');
 
 // ----------gestion du panier -----------------
 //recupeartion des donnees selectionnees par l'utilisateur et envoie du panier
@@ -63,6 +62,7 @@ affichage_btn_add.addEventListener('click', (e)=>{
         le_id: idProduitSelectionner._id,
         cheminImage: idProduitSelectionner.chemin_image,
         nomProduit : idProduitSelectionner.nom_Produits,
+        optionsProd : idProduitSelectionner.nomOptions,
         prixProduit : idProduitSelectionner.prix_produits
     }
 
@@ -73,7 +73,7 @@ affichage_btn_add.addEventListener('click', (e)=>{
 la fonction JSON.parse  */
 // je déclare une variable,saveProduitInLocalStorage qui va contenir les keys et valeur qui sont dans le local storage
 function message(){
-    setTimeout(alert,1, 'produit ajouté au panier');
+    setTimeout(alert,1,'produit ajouté au panier');
 }
 function ajouteProduitStockage (){
     saveProduitInLocalStorage.push(infosProduits);
@@ -102,6 +102,8 @@ else{
 
 //styling produit affichage
 
+affichage_prod_prix.style.fontSize = "30px";
+affichage_prod_prix.style.fontWeight = "800";
 
 prod_affiche_container.style.display = "flex";
 prod_affiche_container.style.justifyContent = "center";

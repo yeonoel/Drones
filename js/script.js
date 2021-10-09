@@ -1,5 +1,6 @@
 import{informations}from "./datas.js";
 
+console.log(informations)
 
 /*********************  creation des div, classes et tag ****************************************************************/
 const matches = document.querySelectorAll("p");
@@ -148,7 +149,7 @@ function Afficherproduits(informations){
         <div class="prod_text">
             <p class="pro_name">${nom_Produits[i]} </p>  
             <p class="prod_prix">${prix_produits[i]} $ </p>
-            <a  href="destination_produits.html?id=${_id[i]}">
+            <a class="btn_adda"  href="destination_produits.html?id=${_id[i]}">
                 <div class="btn_add">voir</div>
             </a>
         </div>
@@ -166,6 +167,8 @@ let prod_text = document.getElementsByClassName('prod_text');
 let pro_name = document.getElementsByClassName('pro_name');
 let pro_prix = document.getElementsByClassName('pro_prix');
 let btn_add = document.getElementsByClassName('btn_add');
+let btn_adda = document.getElementsByClassName('btn_adda');
+
 
 
 
@@ -187,7 +190,7 @@ let btn_add = document.getElementsByClassName('btn_add');
 /* styling menu css */
 
 
-conteneur.style.width = "18%" ;
+conteneur.style.width = "0px" ;
 conteneur.style.transition = "all .9s" ;
 header.style.width = "100%" ;
 header.style.color = "white" ;
@@ -309,14 +312,18 @@ recherche.style.display = "flex";
 let test = true;
 img_toggle_head.addEventListener('click', (e)=>{
 if(test){
-    conteneur.style.width = "0px" ;
+    conteneur.style.width = "15%" ;
     ul1.style.marginLeft = "-32px";
+    conteneur.style.transition = "all .9s" ;
+
 test = false;
 }
 else
 {
-    conteneur.style.width = "18%";
-    ul1.style.marginLeft = "0%";
+    conteneur.style.width = "0px";
+    ul1.style.marginLeft = "-32px";
+    conteneur.style.transition = "all .9s" ;
+
     test = true;
 }
 
@@ -364,6 +371,9 @@ for(let i=0; i<content_bloc_img.length;i++){
         elem.style.border = "1px solid crimson";
         elem.style.transition = "all .3s";
 
+    }
+    for( const elem of btn_adda){
+        elem.style.textDecoration = "none";
     }
 
 for(const elem of prod_content){

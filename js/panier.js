@@ -1,3 +1,5 @@
+
+
 let saveProduitInLocalStorage = JSON.parse(localStorage.getItem("produit")) ;
 let panier = document.querySelector('#panier');
 console.log(saveProduitInLocalStorage);
@@ -111,8 +113,7 @@ panier_vide_btn.style.cursor = "pointer";
     for(j = 0; j<saveProduitInLocalStorage.length; j++){
 
     structureProduitsPanier = structureProduitsPanier + 
-    `
-        <div class="content_produits">
+    `   <div class="content_produits">
             <div class = "panier_produits">
                 <div class= ""> 
                     <div class= "panier_articles"> 
@@ -121,32 +122,30 @@ panier_vide_btn.style.cursor = "pointer";
                     <p class = "btn_produits_panier_supp"><i class="fas fa-trash-alt"></i>  supprimer</p>
                 </div>
                 <div class="panier_produits_quantité">
-                <select class="choix_quantite_produit "">
-                    <option  value=""><i class="fas fa-angle-down"></i>1</option>
-                    <option value="cat">2</option>
-                    <option value="hamster">3</option>
-                    <option value="parrot">4</option>
-                    <option value="spider">5</option>
-                    <option value="goldfish">6</option>
-                </select>
+                    <select class="choix_quantite_produit ">
+                    <i class="fas fa-angle-down"></i>
+                        
+                    </select>
                 </div>
                 <div class="panier_produits_prix_unitaire">
                     <p>${saveProduitInLocalStorage[j].prixProduit} $</p>
                 </div>
                 <div class="panier_produits_sous_total">
-                    <p> 20 $</p>
+
                 </div>
             </div> 
 
         </div><br/>
 `;
-
     }
 
 
 
 
 }
+
+
+
 
 let container = document.querySelector('.container');
 container.innerHTML = structureProduitsPanier;
@@ -181,11 +180,82 @@ let choix_quantite_produit = document.getElementsByClassName('choix_quantite_pro
 let choix_quantite_produit_option = document.querySelectorAll('.choix_quantite_produit > option');
 
 
-console.log(choix_quantite_produit_option)
+
+//  injection des diffentent option le menu QUANTITE qui doivent ce trouver dans l'option pour la liste deroulante qui  de 1 à 9
+let test = [];
+let option = "";
+let the = Array.from(choix_quantite_produit) // choix_quantite_produit A été en convertir en tableau  et transferer  dans la varible the  
+console.log(the)
+for( let j = 0; j < the.length; j++){
+
+    for( let i = 0; i < saveProduitInLocalStorage[j].optionsProd.length; i++){
+        option = option + `<option value = "${i+1} ">${saveProduitInLocalStorage[j].optionsProd[i]}</option>` ; 
+    }
+    the[j].innerHTML = option;
+    option = "";
+    test[j]= the[j].value;
+}
+
+console.log(test)
 
 
 
 
+
+let tabLeSousTotal = Array.from(panier_produits_sous_total);
+
+let leSousTotal = "";
+let ty = [];
+for(let j = 0; j < tabLeSousTotal.length; j++){
+    
+    ty[j] = saveProduitInLocalStorage[j].prixProduit * choix_quantite_produit[j].value;
+    leSousTotal =  `<p>${saveProduitInLocalStorage[j].prixProduit * choix_quantite_produit[j].value}</p>`
+          tabLeSousTotal[j].innerHTML = leSousTotal;
+    
+}
+
+
+for(let j = 0; j < tabLeSousTotal.length; j++){
+    
+    choix_quantite_produit[j].addEventListener('change', (e)=>{
+
+    ty[j] = saveProduitInLocalStorage[j].prixProduit * e.target.value;
+
+console.log(ty)
+        
+        leSousTotal =  `<p>${saveProduitInLocalStorage[j].prixProduit * e.target.value}</p>`
+          tabLeSousTotal[j].innerHTML = leSousTotal;
+    })
+    
+}
+console.log(ty)
+
+// let panier_produits_sous_total = Array.from(panier_produits_sous_total);
+
+// for(let j = 0; j < tabLeSousTotal.length; j++){
+    
+//     panier_produits_sous_total[j].addEventListener('change', (e)=>{
+//     ty[j].push([j])
+        
+//     })
+    
+// }
+// console.log(ty)
+
+// console.log(choix_quantite_produit);
+// for(let i = 0; i<saveProduitInLocalStorage.length; i++){
+//     const t = saveProduitInLocalStorage[i].optionsProd;
+//     for(let j = 0; j<t.length; j++){
+//         const test = `<option value="dog">${j} </option>  `
+
+//     }
+//     for( const thest of choix_quantite_produit){
+//         thest.innerHTML = test;
+//     }
+    
+// }
+
+// code de suppression d'un produit du panier
 
 btn_vider_panier.addEventListener('click', (e)=>{
     e.preventDefault();
@@ -198,37 +268,23 @@ btn_vider_panier.addEventListener('click', (e)=>{
 })
 
 
+// calcul du montat total a partir de la methode educe 
 
-let prixTotalPanier = [];
 
-for(let l = 0; l<saveProduitInLocalStorage.length; l++){
-    prixTotalPanier.push(saveProduitInLocalStorage[l].prixProduit);
-}
-console.log(prixTotalPanier)
 const reducer = (accumulateur , currentValue) => accumulateur + currentValue;
 
-let montantTotalPanier = prixTotalPanier.reduce(reducer);
+let montantTotalPanier = ty.reduce(reducer);
 
-let montantTotal = `
-            ${montantTotalPanier}
-     
-`
+let montantTotal = ` ${montantTotalPanier} `
 
 panier_montant_montant.insertAdjacentText('afterbegin',montantTotal)
 
 
 
 
-
-
 //-----------panier styling --------------
-choix_quantite_produit_option
-Array.from(choix_quantite_produit_option).forEach((element)=>{
-    element.style.textDecoration = "none";
-    element.style.border = "none";
-    element.style.cursor = "pointer";
-  
-})
+
+
 Array.from(choix_quantite_produit).forEach((element)=>{
     element.style.border = "none";
     element.style.cursor = "pointer";

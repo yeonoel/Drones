@@ -1,3 +1,5 @@
+
+
 let saveProduitInLocalStorage = JSON.parse(localStorage.getItem("produit")) ;
 
 let panier = document.querySelector('#panier');
@@ -5,6 +7,25 @@ console.log(saveProduitInLocalStorage);
 
 
 // structue panier vide 
+
+
+
+
+
+for(let i = 0; i<saveProduitInLocalStorage[j].optionsProd.length; i++){
+
+
+    test = test + `<option value="0">${saveProduitInLocalStorage[j].optionsProd[i]}</option>` ;
+
+    
+}        
+element[j].innerHTML = test;
+
+
+
+
+
+
 
 
 let panierVide =   `<div >

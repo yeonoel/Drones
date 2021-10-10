@@ -214,12 +214,20 @@ for(let j = 0; j < tabLeSousTotal.length; j++){
     
 }
 
+const reducer = (accumulateur , currentValue) => accumulateur + currentValue;
+
+let montantTotalPanier = ty.reduce(reducer);
+
+let montantTotal = ` ${montantTotalPanier} `
+
+panier_montant_montant.insertAdjacentText('afterbegin',montantTotal)
+
 
 for(let j = 0; j < tabLeSousTotal.length; j++){
     
     choix_quantite_produit[j].addEventListener('change', (e)=>{
 
-    ty[j] = saveProduitInLocalStorage[j].prixProduit * e.target.value;
+    ty.splice([j],1,saveProduitInLocalStorage[j].prixProduit * e.target.value)
 
 console.log(ty)
         
@@ -230,30 +238,36 @@ console.log(ty)
 }
 console.log(ty)
 
-// let panier_produits_sous_total = Array.from(panier_produits_sous_total);
+for(let i = 0; i<ty.length; i++){
 
-// for(let j = 0; j < tabLeSousTotal.length; j++){
-    
-//     panier_produits_sous_total[j].addEventListener('change', (e)=>{
-//     ty[j].push([j])
-        
-//     })
-    
-// }
-// console.log(ty)
 
-// console.log(choix_quantite_produit);
-// for(let i = 0; i<saveProduitInLocalStorage.length; i++){
-//     const t = saveProduitInLocalStorage[i].optionsProd;
-//     for(let j = 0; j<t.length; j++){
-//         const test = `<option value="dog">${j} </option>  `
 
-//     }
-//     for( const thest of choix_quantite_produit){
-//         thest.innerHTML = test;
-//     }
+}
+// calcul du montat total a partir de la methode educe 
+for(let j = 0; j < tabLeSousTotal.length; j++){
+        choix_quantite_produit[j].addEventListener('change', (e)=>{
+            montantTotal = 0;
+        panier_montant_montant.insertAdjacentText('afterbegin'," ")
+
+            const reducer = (accumulateur , currentValue) => accumulateur + currentValue;
+
+         montantTotalPanier = ty.reduce(reducer);
+
+         montantTotal = ` ${montantTotalPanier} `
+console.log(montantTotal)
+        panier_montant_montant.textContent = montantTotal;
+        console.log(panier_montant_montant)
+
+
     
-// }
+    
+})
+}
+
+
+
+
+
 
 // code de suppression d'un produit du panier
 
@@ -267,17 +281,6 @@ btn_vider_panier.addEventListener('click', (e)=>{
     
 })
 
-
-// calcul du montat total a partir de la methode educe 
-
-
-const reducer = (accumulateur , currentValue) => accumulateur + currentValue;
-
-let montantTotalPanier = ty.reduce(reducer);
-
-let montantTotal = ` ${montantTotalPanier} `
-
-panier_montant_montant.insertAdjacentText('afterbegin',montantTotal)
 
 
 

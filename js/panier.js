@@ -446,7 +446,7 @@ Array.from(btn).forEach(element => {
 panier_btn2.addEventListener('click',(e)=>{
         e.stopPropagation()
         e.preventDefault()
-        window.location.href = "#";
+        window.location.href = "formulaire.html";
         
     })          
 

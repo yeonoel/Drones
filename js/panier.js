@@ -23,6 +23,7 @@ if(saveProduitInLocalStorage == null || saveProduitInLocalStorage == 0){
                                 </div>
                             </div>`
                             ;
+
                             panier.innerHTML = panierVide;
 
 
@@ -218,7 +219,9 @@ const reducer = (accumulateur , currentValue) => accumulateur + currentValue;
 
 let montantTotalPanier = ty.reduce(reducer);
 
-let montantTotal = ` ${montantTotalPanier} `
+let montantTotal = ` ${montantTotalPanier} `;
+
+localStorage.setItem("montantTotalAchat",montantTotalPanier);
 
 panier_montant_montant.insertAdjacentText('afterbegin',montantTotal)
 
@@ -255,6 +258,7 @@ for(let j = 0; j < tabLeSousTotal.length; j++){
 
          montantTotal = ` ${montantTotalPanier} `
 console.log(montantTotal)
+            localStorage.setItem("montantTotalAchat",montantTotalPanier);
         panier_montant_montant.textContent = montantTotal;
         console.log(panier_montant_montant)
 
@@ -295,9 +299,8 @@ Array.from(choix_quantite_produit).forEach((element)=>{
 })
 
 
-panier.style.backgroundColor = "#EAEDED";
+panier.style.backgroundColor = "#EAFCF0";
 panier.style.fontFamily = "'Poppins', sans-serif";
-panier.style.backgroundColor = "#EAEDED";
 panier.style.padding = "20px";
 
 container.style.width = "80%";
@@ -479,7 +482,6 @@ btn_vider_panier.style.textAlign = "center";
 btn_vider_panier.style.color = "white";
 btn_vider_panier.style.borderRadius = "15px";
 btn_vider_panier.style.cursor = "pointer";
-
 
 
 
